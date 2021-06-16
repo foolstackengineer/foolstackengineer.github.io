@@ -119,4 +119,6 @@ theme_config:
   logo:
     enabled: false
   favicon:
-  google_analytics: G-GPZEVS1WBG
+  google_analytics: 
+    enabled: true
+    id: G-GPZEVS1WBG
