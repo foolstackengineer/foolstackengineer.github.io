@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Why?When setting up a Golang working environment, broadly speaking, there are two ways: using a package manager&#x2F;installer or installing from source. Most of the time it’s much easier to use a package">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Install Golang from Source">
+<meta property="og:url" content="https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/index.html">
+<meta property="og:site_name" content="Fool Stack Engineer">
+<meta property="og:description" content="Why?When setting up a Golang working environment, broadly speaking, there are two ways: using a package manager&#x2F;installer or installing from source. Most of the time it’s much easier to use a package">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-17T00:09:57.000Z">
+<meta property="article:modified_time" content="2021-06-17T15:15:43.654Z">
+<meta property="article:author" content="🐙">
+<meta property="article:tag" content="Golang">
+<meta property="article:tag" content="the-hard-way">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!-- title -->
+    <title>Install Golang from Source</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" "Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/categories/blog/">blog</a></li>
+         
+          <li><a href="/categories/notes/">notes</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post " href="/2021/04/26/hello-world/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top " href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post " href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&text=Install Golang from Source"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&title=Install Golang from Source"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&is_video=false&description=Install Golang from Source"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Install Golang from Source&body=Check out this article: https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&title=Install Golang from Source"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&title=Install Golang from Source"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&title=Install Golang from Source"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&title=Install Golang from Source"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&name=Install Golang from Source&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&t=Install Golang from Source"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why"><span class="toc-number">1.</span> <span class="toc-text">Why?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Overview"><span class="toc-number">2.</span> <span class="toc-text">Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-result-of-installation"><span class="toc-number">2.1.</span> <span class="toc-text">The result of installation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-compiler"><span class="toc-number">2.2.</span> <span class="toc-text">The compiler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-source"><span class="toc-number">2.3.</span> <span class="toc-text">The source</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bootstrap-Step-1-and-3"><span class="toc-number">3.</span> <span class="toc-text">Bootstrap (Step 1 and 3)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fetch-the-source-Step-1-again-%F0%9F%98%93"><span class="toc-number">4.</span> <span class="toc-text">Fetch the source (Step 1 again 😓)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Build-and-install-Step-2"><span class="toc-number">5.</span> <span class="toc-text">Build and install (Step 2)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-the-installation"><span class="toc-number">6.</span> <span class="toc-text">Test the installation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Update"><span class="toc-number">7.</span> <span class="toc-text">Update</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tail"><span class="toc-number">8.</span> <span class="toc-text">Tail</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Install Golang from Source
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">🐙</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-06-17T00:09:57.000Z" itemprop="datePublished">2021-06-17</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/blog/">blog</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Golang/" rel="tag">Golang</a>, <a class="tag-link-link" href="/tags/the-hard-way/" rel="tag">the-hard-way</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Why"><a href="#Why" class="headerlink" title="Why?"></a>Why?</h2><p>When setting up a Golang working environment, broadly speaking, there are two ways: using a package manager/installer or installing from source. Most of the time it’s much easier to use a package manager or installer and by executing one or two commands, the entire working environment is ready to use. Well, this time, I just would like to see how manual installation works.</p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Let me first list all steps that I can think of for the installation:</p>
+<ol>
+<li>Get the Golang source code from somewhere, maybe a Github repo</li>
+<li>Build the Golang source into executable binaries</li>
+<li>😱 It seems that I need to have a Go compiler ready before Step 2 (<strong>bootstrap</strong>)</li>
+<li>Install the executable binaries, there might be scripts doing this or there are standard places to put these binaries</li>
+<li>A working Go installation depends on several environment varialbes, I may need to set up those variables</li>
+<li>Verify the installation</li>
+</ol>
+<p>Let me think through the process carefully.</p>
+<h3 id="The-result-of-installation"><a href="#The-result-of-installation" class="headerlink" title="The result of installation"></a>The result of installation</h3><p>The result of a successful installation is a working Go environmant in which I can run different Go commands and download and build 3rd-party source code and working on my own code. This means that the OS of my computer can correclty locate the Go toolchain and the installed 3rd-party binaries, the archive files, and the project source files written in Golang. The Go environment uses environment vairables to help the OS to do this:</p>
+<ul>
+<li><code>GOROOT</code>: the directory containing the Golang source code that implements the Golang programming language</li>
+<li><code>GOBIN</code>: the directory to install binary files</li>
+<li><code>GOPATH</code>: the directorying containing three subdirectories, i.e., <code>bin</code>, <code>pkg</code>, and <code>src</code></li>
+</ul>
+<p>When using the official Go installer (<a target="_blank" rel="noopener" href="https://golang.org/doc/install#download">link</a>) to do the installation, the Go distribution will be installed in <code>/usr/local/go</code> (<a target="_blank" rel="noopener" href="https://golang.org/doc/install#install">ref</a>) and its structure is something like this:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line">├─ usr/</span><br><span class="line">│  ├─ local/</span><br><span class="line">│  │  ├─ go/</span><br><span class="line">│  │  │  ├─ bin/</span><br><span class="line">│  │  │  ├─ pkg/</span><br><span class="line">│  │  │  ├─ src/</span><br></pre></td></tr></table></figure>
+<p>This directory, <code>/usr/local/go</code>, is the “GOPATH” and it has three subdirectories containing the source files (<code>src</code>), archive files (<code>pkg</code>), and binary files (<code>bin</code>). </p>
+<p>The <code>/usr/local/go/bin</code> (or <code>$GOPATH/bin</code>) directory is also added to the <code>PATH</code> environment variable so that all go binaries are accessible from the terminal. </p>
+<h3 id="The-compiler"><a href="#The-compiler" class="headerlink" title="The compiler"></a>The compiler</h3><p>The Go toolchain is written in Go or Golang is implemented in Golang. To build it, I need a Go compiler installed (<a target="_blank" rel="noopener" href="https://golang.org/doc/install/source#go14">ref</a>). This is the compiler that is used for “bootstrapping” the installation. This compiler can be a fully working Go toolchain already setup on my computer or a designated version of Go commands setup just for building and installing of Golang from source. </p>
+<ul>
+<li>😱 A working version of Golang means in order to build Go from source, I need to have a working version of Golang on my system. Well, this means, by default, I will not be using the build result as my Go toolchain</li>
+<li>👻 A designated version of Go setup just for building and installing Golang requires the use of an environment variable named <code>GOROOT_BOOTSTRAP</code>, which directs the bootstrap process to the designated Go compiler. In this case, <code>$GOROOT_BOOTSTRAP/bin/go</code> should be the <code>go</code> command to use.</li>
+</ul>
+<h3 id="The-source"><a href="#The-source" class="headerlink" title="The source"></a>The source</h3><p>The source code of Golang is obtained by using Git, so I need to have Git installed locally. I need to find a good place to put the source code, and as suggested by the doc (<a target="_blank" rel="noopener" href="https://golang.org/doc/install/source#fetch">ref</a>), I can use <code>goroot</code> as the folder name. I need to run a build script to build this copy of source code and the Go tool chain will be installed in <code>&lt;parent dir&gt;/goroot/bin</code>.</p>
+<h2 id="Bootstrap-Step-1-and-3"><a href="#Bootstrap-Step-1-and-3" class="headerlink" title="Bootstrap (Step 1 and 3)"></a>Bootstrap (Step 1 and 3)</h2><p>I would like to have a version of Go toolchain just for bootstrapping the building process, so that I can always inspect the implementation of the installed Go toolchain.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">clone</span> the go <span class="built_in">source</span> repo into a folder named go1.4</span></span><br><span class="line">git clone git@github.com:golang/go.git go1.4</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> navigate to the <span class="built_in">source</span> folder</span></span><br><span class="line">cd go1.4</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> checkout the release-branch.go1.4 branch</span></span><br><span class="line">git checkout release-branch.go1.4</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Golang v1.4 was the last distribution in which the toolchain was written in C (<a target="_blank" rel="noopener" href="https://golang.org/doc/install/source#go14">ref</a>)<ul>
+<li>This is still source code, but I don’t need a Go compiler to built it (but I need a C compiler)</li>
+</ul>
+</li>
+</ul>
+<p>After unpacking the Golang v1.4 source code, <code>cd</code> into the <code>src</code> subdirectory, and set <code>CGO_ENABLED=0</code> in the envionment, and run <code>make.bash</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> navigate into the src directory</span></span><br><span class="line">cd src</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> environment variable CGO_ENABLED to 0</span></span><br><span class="line">CGO_ENABLED=0</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> run make.bash</span></span><br><span class="line">./make.bash</span><br></pre></td></tr></table></figure>
+
+<p>Once the Golang v1.4 has been unpacked, you need to set the <code>GOROOT_BOOTSTRAP</code> environment variable to its directory, so that <code>$GOROOT_BOOTSTRAP/bin/go</code> is the <code>go</code> command to use for building the Golang source code. </p>
+<ul>
+<li>❗️ Do not attempt to reuse this git clone in the later steps</li>
+<li>❗️ The go1.4 bootstrap toolchain must be able to properly traverse the go1.4 sources that it assumes are present under this repository root</li>
+</ul>
+<h2 id="Fetch-the-source-Step-1-again-😓"><a href="#Fetch-the-source-Step-1-again-😓" class="headerlink" title="Fetch the source (Step 1 again 😓)"></a>Fetch the source (Step 1 again 😓)</h2><p>This time I need to get the copy of Golang source code that will be built. </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">clone</span> the <span class="built_in">source</span> code into a folder, <span class="keyword">in</span> this <span class="keyword">case</span>, a folder named goroot</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> with</span></span><br><span class="line">git clone https://go.googlesource.com/go goroot</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">git clone git@github.com:golang/go.git goroot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> navigate into goroot</span></span><br><span class="line">cd goroot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> get all the tags (so that I can select a particular version)</span></span><br><span class="line">git fetch --all --tags </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> checkout a particular tag, e.g., go1.16.3</span></span><br><span class="line">git checkout go1.16.3</span><br><span class="line"><span class="meta">#</span><span class="bash"> or create a new branch from a tag</span></span><br><span class="line">git checkout -b go1.16.3 go1.16.3</span><br></pre></td></tr></table></figure>
+
+<p>Go will be installed in the directory where it is checkout out. If Go is checked out in <code>$HOME/goroot</code>, executables will then be installed in <code>$HOME/goroot/bin</code>. </p>
+<p>The directory containing the Golang source code may have any name, but if that folder is <code>$HOME/go</code>, it will conflict with the default location of <code>$GOPATH</code>. </p>
+<h2 id="Build-and-install-Step-2"><a href="#Build-and-install-Step-2" class="headerlink" title="Build and install (Step 2)"></a>Build and install (Step 2)</h2><p>To build the Go distribution, just run the commands below, and once the commands finish executing, the building part is done and the Go executables should be in <code>$HOME/goroot/bin</code>. </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> navigate into the src subfolder</span></span><br><span class="line">cd src</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> run all.bash</span></span><br><span class="line">./all.bash</span><br></pre></td></tr></table></figure>
+
+<p>The “installation” is done by setting up environment variables (<a target="_blank" rel="noopener" href="https://golang.org/doc/install/source#environment">ref</a>):</p>
+<ul>
+<li><code>GOROOT</code>: The root of the Go tree, often $HOME/go1.X. Its value is built into the tree when it is compiled, and defaults to the parent of the directory where all.bash was run. There is no need to set this unless you want to switch between multiple local copies of the repository.<ul>
+<li>The value should be the directory where the second copy of Go source code is check out into</li>
+</ul>
+</li>
+<li><code>GOPATH</code>: The directory where Go projects outside the Go distribution are typically checked out.<ul>
+<li>The value to this variable should be the parent directory of the <code>bin</code>, <code>pkg</code>, and <code>src</code> directory, where the <code>go install</code> result, library archives, and source dependencies are placed respectively.</li>
+</ul>
+</li>
+<li><code>GOBIN</code>: The directory where executables outside the Go distribution are installed using the go command. <ul>
+<li>Most of the time it’s just <code>$GOPATH/bin</code></li>
+</ul>
+</li>
+</ul>
+<p>Because the Go toolchain (commands) should be available in terminals, <code>$GOROOT/bin</code> and <code>$GOBIN</code> should be added to the <code>PATH</code> environment variable.</p>
+<h2 id="Test-the-installation"><a href="#Test-the-installation" class="headerlink" title="Test the installation"></a>Test the installation</h2><p>Once the environment variables are ready, I can test the installation. </p>
+<p>Check the current go version by executing the command below in a termianl:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go version</span><br></pre></td></tr></table></figure>
+
+<p>Check whether the installed Golang is able to build a “Hello, world!” project (<a target="_blank" rel="noopener" href="https://golang.org/doc/code#Command">ref</a>):</p>
+<ul>
+<li>Create a <code>main.go</code> file anywhere in your local computer</li>
+<li>Do something simple with Golang, e.g., printing “Hello, world!” to the terminal (shown below). </li>
+</ul>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Hello, world!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>In a terminal, navigate to the directory containing the <code>main.go</code> file and execute:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure>
+
+<p>If you see “Hello, world!” gets printed in the terminal, the installation is good. </p>
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><p>How do I update the current installed version to a different one or how do I experiment with my local changes to the Golang source code?</p>
+<p>The answer is: just rebuild the source. </p>
+<p>The code in the <code>$HOME/goroot/src</code> folder reflects the version of Golang source code I want to build, otherwise <code>git checkout</code> the correct version. Then run</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> navigate into the src subfolder</span></span><br><span class="line">cd $HOME/goroot/src</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> run all.bash</span></span><br><span class="line">./all.bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="Tail"><a href="#Tail" class="headerlink" title="Tail"></a>Tail</h2><p>Now that I have a working Go environment, I can build a 3rd copy of Go source and play with it or I can have multiple Go versions installed at the same time (<a target="_blank" rel="noopener" href="https://golang.org/doc/manage-install#installing-multiple">ref</a>).</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/categories/blog/">blog</a></li>
+         
+          <li><a href="/categories/notes/">notes</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why"><span class="toc-number">1.</span> <span class="toc-text">Why?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Overview"><span class="toc-number">2.</span> <span class="toc-text">Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-result-of-installation"><span class="toc-number">2.1.</span> <span class="toc-text">The result of installation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-compiler"><span class="toc-number">2.2.</span> <span class="toc-text">The compiler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-source"><span class="toc-number">2.3.</span> <span class="toc-text">The source</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bootstrap-Step-1-and-3"><span class="toc-number">3.</span> <span class="toc-text">Bootstrap (Step 1 and 3)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fetch-the-source-Step-1-again-%F0%9F%98%93"><span class="toc-number">4.</span> <span class="toc-text">Fetch the source (Step 1 again 😓)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Build-and-install-Step-2"><span class="toc-number">5.</span> <span class="toc-text">Build and install (Step 2)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-the-installation"><span class="toc-number">6.</span> <span class="toc-text">Test the installation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Update"><span class="toc-number">7.</span> <span class="toc-text">Update</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tail"><span class="toc-number">8.</span> <span class="toc-text">Tail</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&text=Install Golang from Source"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&title=Install Golang from Source"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&is_video=false&description=Install Golang from Source"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Install Golang from Source&body=Check out this article: https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&title=Install Golang from Source"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&title=Install Golang from Source"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&title=Install Golang from Source"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&title=Install Golang from Source"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&name=Install Golang from Source&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://foolstackengineer.xyz/2021/06/17/Install-Golang-from-Source/&t=Install Golang from Source"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    🐙
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/categories/blog/">blog</a></li>
+         
+          <li><a href="/categories/notes/">notes</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GPZEVS1WBG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GPZEVS1WBG');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'foolstackengineer';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>
