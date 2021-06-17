@@ -122,3 +122,6 @@ theme_config:
   google_analytics: 
     enabled: true
     id: G-GPZEVS1WBG
+  disqus:
+    enabled: true
+    shortname: foolstackengineer  
